@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:03:38 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/05/31 21:42:22 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/06/01 09:59:53 by ihamani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ char	**wildcards(char **args, t_c *c)
 	{
 		if (ft_chrstr('*', args[i]) && !has_qoute(args[i]))
 		{
-			printf("======[TEST]======\n");
 			size = ft_wildsize(head);
 			expand_wildcards(args[i], ".", &head, c);
 			if (size == ft_wildsize(head))

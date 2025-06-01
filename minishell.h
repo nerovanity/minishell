@@ -6,7 +6,7 @@
 /*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:40:20 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/06/01 09:28:34 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/01 11:05:15 by ihamani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,6 @@
 # include <time.h>
 # include <unistd.h>
 
-# define MAX_HISTORY_LENGTH 1000
-# define KNRM "\x1B[0m"
-# define KRED "\x1B[31m"
-# define KGRN "\x1B[32m"
-# define KYEL "\x1B[33m"
-# define KBLU "\x1B[34m"
-# define KMAG "\x1B[35m"
-# define KCYN "\x1B[36m"
-# define KWHT "\x1B[37m"
 # define PATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 extern int					g_signal;
@@ -224,6 +215,7 @@ typedef struct s_wild
 	struct s_wild			*next;
 	struct s_wild			*prev;
 }							t_wild;
+
 typedef struct s_wild_utils2
 {
 	char					*dir;
@@ -269,8 +261,6 @@ void						ft_putenv(char *name, char *value, t_env **ft_env);
 char						*ft_getenv(char *name, t_env **ft_env);
 void						ft_free_env(t_env **ft_env);
 char						*env_check_path(t_env **ft_env, int flag);
-
-// builtin
 int							cd(char **args, t_gc **gg, t_env **ft_env);
 int							echo(char **args, int out);
 int							cmd_env(char **args, int out, t_env **env);
@@ -294,27 +284,20 @@ int							ft_exit(char **args, t_env **ft_env, t_gc **gc,
 char						*pwd_update(t_env **ft_env, int flag);
 void						no_args_ext(t_env *head, int out);
 void						free_d(char **tmp);
-
-// redic
 void						ft_add_redic(t_redic **head, t_redic *new);
 void						*ft_new_redic_node(t_gc **garbage, char *content);
 void						redr_cmd(t_leaf *tmp, t_c *c);
-
-// tokenizer
 bool						tokenizer(t_leaf **root, t_c *c, char *line);
 t_tk						*ft_new_tk_node(char *content, t_gc **garbage,
 								t_split_utils *utils);
 void						ft_add_tk(t_tk **head, t_tk *new);
 int							ft_lstsize(t_tk *head);
 t_tk						*ft_lstlast(t_tk *root);
-
-// syntax_error
 bool						and_or(char *line);
 bool						syntax_error(char *line);
 bool						redir_handler(char *line);
 bool						qoutes(char *line);
-bool						parenthesis(char *line, int open_count, int i,
-								int j);
+bool						parenthesis(char *line, int i);
 char						*formating(char *line, t_gc **gg);
 int							mod_chrstr(char chr, char *str);
 void						skip(char *line, int *i);
@@ -329,10 +312,7 @@ bool						check_count_validity(int count, char *line);
 bool						correct_count(char *line);
 bool						check_op_conflict(char **line, char oldchr);
 bool						correct_format(char *line);
-void						move_next(char *line, int *i);
 bool						has_qoute(char *arg);
-
-// utils
 void						ft_split(t_tk **res, t_gc **garbage, char *line);
 char						*ft_copy(char *src, int len, t_gc **garbage);
 int							ft_isalpha(int c);
@@ -340,7 +320,6 @@ int							ft_isdigit(int c);
 int							ft_isalnum(int c);
 t_type						special_cases(char *str);
 size_t						args_len(char **args);
-int							ft_chrcount(char *str, char c);
 bool						ft_chrstr(char chr, char *str);
 void						*ft_memcpy(void *dst, const void *src, size_t n);
 bool						ft_whitespaces(char chr);
@@ -353,7 +332,6 @@ char						*ft_substr(char const *s, unsigned int start,
 int							ft_strcmp(const char *s1, const char *s2);
 int							ft_skip_quates(int *i, char *line);
 int							ft_priority(char *token);
-bool						ft_strinstr(char *haystack, char *needle);
 char						*ft_strip(char chr, char *line, t_gc **garbage);
 int							ft_chrindex(char *line, char chr);
 char						*ft_cut(char const *s, unsigned int start,
@@ -387,12 +365,8 @@ int							handle_redirection(t_redic **res, t_c *c,
 char						*ft_strcpy(char *dest, const char *src);
 int							ft_atoi(const char *str);
 long long					ft_atoll(char *str);
-
-// tree
 t_leaf						*new_leaf(t_tk *token, t_type type, t_gc **garbage);
 t_leaf						*build_ast(t_tk *tokens, t_gc **garbage);
-
-//************************************************************** */
 char						**expander(char **args, t_c *c);
 void						ft_add_qoute(t_qoutes **head, t_qoutes *new);
 void						ft_add_expand(t_expand **head, t_expand *new);
@@ -419,9 +393,6 @@ char						**ft_expand_split(char *str, t_c *c, int i, int j);
 int							ft_args_size_flag(t_arg *head);
 char						*get_pid_str(t_c *c);
 char						*remove_qoutes(char *arg, t_c *c);
-
-//************************************************************** */
-// exe
 void						exe_cmd(char **args, t_c *c);
 void						exit_exe(t_env **ft_env, t_gc **gc, int err);
 int							exe_builtin(char **args, t_leaf *root, t_c *c);
@@ -430,8 +401,6 @@ bool						is_builtin(char *str);
 char						**dp_env(t_env **ft_env, t_gc **gc);
 char						*resolve_path(char **args, t_env **ft_env,
 								t_gc **gc);
-
-// redics
 bool						exec_redirec(t_tk *token, t_c *c);
 void						heredoc_ext(t_tk *token, char *path, t_c *c);
 bool						ext_exe_redr(t_redic **curr, t_c *c, t_tk *token);
@@ -440,11 +409,7 @@ bool						out_files(t_tk *token, char *path, t_c *c);
 bool						append_files(t_tk *token, char *path, t_c *c);
 bool						heredoc(t_tk *token, char *path, t_c *c);
 bool						check_redr_file(char *str);
-
-// exec part me
 int							execc(t_c *c);
-
-// exe
 pid_t						child3(t_c *c, t_leaf **root, int *fd);
 void						pipe_err(char *str, t_c *c, int *fds);
 void						child2(t_c *c, t_leaf **root, int *fd);
@@ -469,16 +434,10 @@ void						child2_pipe(t_leaf *tmp, t_c *c, int *fds,
 								int *p_fd);
 void						cmd_no_args(t_leaf *tmp, t_c *c);
 void						path_check_pro(char **args);
-void						init_pwd(t_env **ft_env);
-// signal
-
 void						handler(int sig);
 int							set_status(int new_status, int flag);
 void						handle_signal_exe(int status);
 void						handle_signal_pip(int tmp, int status);
-
-// wild cards
-
 void						ft_add_wild(t_wild **head, t_wild *new);
 t_wild						*ft_new_wild(char *arg, bool flag, t_c *c);
 int							ft_wildsize(t_wild *head);
@@ -490,7 +449,6 @@ bool						current_dir(char *line);
 int							is_dir(char *line);
 void						skip_hit(int *i, char *str);
 void						not_hit(int *i, char *str);
-
 void						skip_it(char *str, int *i);
 bool						more_things(t_as *u);
 char						**gen_arry(char *line, t_gc **garbage);

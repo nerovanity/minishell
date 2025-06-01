@@ -6,7 +6,7 @@
 /*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:13:11 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/06/01 09:31:13 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/01 10:03:32 by ihamani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ bool	exe_cmd_hundler(t_leaf *node, t_c *c)
 	char	**args;
 
 	args = NULL;
-	args = ft_args_split(node->token->token, c->garbage);
-	args = expander(args, c);
+	if (node->token->token)
+	{
+		args = ft_args_split(node->token->token, c->garbage);
+		args = expander(args, c);
+	}
 	if (!args)
 	{
 		exec_redirec(node->token, c);

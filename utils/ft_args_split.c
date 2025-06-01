@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_args_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 09:48:28 by ihamani           #+#    #+#             */
-/*   Updated: 2025/05/31 21:23:57 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/06/01 09:58:51 by ihamani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ char	**ft_args_split(char *str, t_gc **garbage)
 {
 	t_as	*u;
 
+	if (!str)
+		return (gen_arry(ft_strdup("", garbage), garbage));
 	u = ft_malloc(sizeof(t_as), garbage);
 	u->words = 0;
 	u->str = str;
 	u->garbage = garbage;
 	u->words_counter = strlen_mod(str);
-	if (!str)
-		return (gen_arry(ft_strdup("", garbage), garbage));
 	u->res = ft_malloc(sizeof(char *) * (u->words_counter + 1), garbage);
 	if (!u->res)
 		return (NULL);
