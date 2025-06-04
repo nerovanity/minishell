@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 14:41:41 by ihamani           #+#    #+#             */
-/*   Updated: 2025/05/31 14:44:20 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/06/02 10:46:58 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,6 @@ static int	strlen_mod(char *str)
 	return (words);
 }
 
-static char	**free_the_split(char **res, int words)
-{
-	while (words)
-	{
-		free(res[words]);
-		words--;
-	}
-	free(res);
-	return (NULL);
-}
-
 char	**ft_expand_split(char *str, t_c *c, int i, int j)
 {
 	char	**res;
@@ -82,7 +71,7 @@ char	**ft_expand_split(char *str, t_c *c, int i, int j)
 		{
 			res[words] = ft_malloc(sizeof(char) * ((i - j) + 1), c->garbage);
 			if (!res[words])
-				return (free_the_split(res, words));
+				return (NULL);
 			(ft_expand_copy(res[words], &str[j], (i - j)), words++);
 		}
 	}

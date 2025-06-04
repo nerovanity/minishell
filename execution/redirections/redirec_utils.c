@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirec_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:50:13 by ihamani           #+#    #+#             */
-/*   Updated: 2025/05/31 17:30:07 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/02 10:53:58 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ bool	check_redr_file(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] == ' ')
+	while (ft_whitespaces(str[i]))
 		i++;
 	if (!str[i])
 		return (false);

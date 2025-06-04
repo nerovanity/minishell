@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 16:19:28 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/05/31 17:49:31 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:23:10 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ char	**extact_res(char *cut, char **line, t_c *c)
 	}
 	return (line);
 }
-static int	process_dollar_expansion(char *arg, int j, t_c *c, char **line)
+
+int	process_dollar_expansion(char *arg, int j, t_c *c, char **line)
 {
 	int		k;
 	char	*cut;
@@ -73,42 +74,12 @@ static int	process_dollar_expansion(char *arg, int j, t_c *c, char **line)
 	return (k);
 }
 
-static char	*handle_dollar_in_quotes(char *arg, t_c *c)
-{
-	t_list	*u;
-	t_e_h	h;
-
-	h.line = ft_strdup("", c->garbage);
-	h.j = 0;
-	1 && (u = init_list(arg, c), h.expands = *u->expand, h.qoutes = *u->qoutes);
-	while (arg[h.j])
-	{
-		h.type = is_dollar_in_quotes(&h.qoutes, h.j);
-		h.data = is_index_on_dollar(&h.expands, h.j);
-		if ((arg[h.j] == '$' || h.data) && h.type == INSIDED)
-		{
-			h.j = process_dollar_expansion(arg, h.j, c, &h.line);
-			continue ;
-		}
-		else if (is_im_quotes(&h.qoutes, h.j))
-		{
-			h.j++;
-			continue ;
-		}
-		h.line = ft_addchr(h.line, arg[h.j], c);
-		h.j++;
-	}
-	return (h.line);
-}
-
-char	**hundler(char **args, t_c *c)
+char	**hundler(char **args, t_c *c, int i)
 {
 	t_arg	*min_head;
-	int		i;
 	char	**new;
 
 	min_head = NULL;
-	i = 0;
 	new = NULL;
 	while (args[i])
 	{

@@ -6,11 +6,18 @@
 /*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 13:40:54 by ihamani           #+#    #+#             */
-/*   Updated: 2025/05/29 13:22:02 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/01 19:23:10 by ihamani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+static	void	free_node(t_env *node)
+{
+	free(node->name);
+	free(node->value);
+	free(node);
+}
 
 static void	remove_node(char *name, t_env **ft_env)
 {
@@ -26,15 +33,16 @@ static void	remove_node(char *name, t_env **ft_env)
 		prev = head;
 		head = head->next;
 	}
+	t = head;
 	if (!prev)
+	{
 		*ft_env = (*ft_env)->next;
+		free_node(t);
+	}
 	else if (head && ft_strcmp(head->name, "_"))
 	{
-		t = head;
 		prev->next = head->next;
-		free(t->name);
-		free(t->value);
-		free(t);
+		free_node(t);
 	}
 	else if (!head && !ft_strcmp(name, "PATH"))
 		env_check_path(ft_env, -1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:40:20 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/06/01 11:05:15 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/02 13:33:00 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ typedef struct s_mini
 	t_retypes				type;
 }							t_mini;
 
-// env
 typedef struct s_env
 {
 	char					*name;
@@ -249,9 +248,10 @@ typedef struct s_expand_hundler
 	t_expand				*expands;
 	t_qoutes				*qoutes;
 	char					*line;
-	int						j;
+	int						*j;
 	t_dollar				type;
 	t_expand				*data;
+	t_c						*c;
 }							t_e_h;
 
 void						ft_add_env(t_env **head, t_env *new);
@@ -464,7 +464,14 @@ char						**convert_(char *line, t_c *c);
 char						**convert_flag(t_arg **args, t_c *c);
 char						**convert_to_array(t_arg **head, t_c *c);
 t_list						*init_list(char *arg, t_c *c);
-char						**hundler(char **args, t_c *c);
+char						**hundler(char **args, t_c *c, int i);
 char						*decide(char **array, int i);
 void						handle_quotes_only(char *arg, t_c *c, t_arg **head);
+char						*handle_dollar_in_quotes(char *arg, t_c *c);
+int							process_dollar_expansion(char *arg, int j, t_c *c,
+								char **line);
+bool						ft_strinstr(char *haystack, char *needle);
+void						env_init_helper(char *name, char *value,
+								t_env **ft_env);
+bool						check_amb(char *tmp);
 #endif

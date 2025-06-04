@@ -6,7 +6,7 @@
 /*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:50:45 by ihamani           #+#    #+#             */
-/*   Updated: 2025/05/30 10:20:38 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/01 13:56:36 by ihamani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,13 @@ void	shlvl(t_env **ft_env, t_gc **gc)
 		else
 		{
 			lvl = ft_atoi(old);
-			if (lvl++ < 999)
+			if (lvl == 0 || lvl == -1)
+				ft_upenv("SHLVL", "1", ft_env);
+			else if (lvl++ < 999)
 				ft_upenv("SHLVL", ft_itoa(lvl, gc), ft_env);
 			else
 			{
-				ft_putstr_fd("shell level (1000) too high, resetting to 1\n",
+				ft_putstr_fd("shell level is too high, resetting to 1\n",
 					2);
 				ft_upenv("SHLVL", "1", ft_env);
 			}

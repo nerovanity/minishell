@@ -6,7 +6,7 @@
 /*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:21:13 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/06/01 11:19:45 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/01 14:05:13 by ihamani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ bool	parenthesis(char *line, int i)
 	{
 		if (ft_chrstr(line[i], "()"))
 			return (false);
-		i++;
+		skip(line, &i);
+		if (line[i])
+			i++;
 	}
 	return (true);
 }

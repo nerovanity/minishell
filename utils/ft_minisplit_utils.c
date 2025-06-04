@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minisplit_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 10:36:48 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/05/31 12:28:36 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/02 10:51:39 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_retypes	special_cases_redic(char *str)
 
 void	skip_spaces_minisplit(char *line, int *i)
 {
-	while (line[*i] && ft_chrstr(line[*i], " \t"))
+	while (line[*i] && ft_whitespaces(line[*i]))
 		(*i)++;
 }
 
@@ -44,7 +44,7 @@ char	*extract_file(char *line, int *i, int *j, t_c *c)
 
 	skip_spaces_minisplit(line, i);
 	*j = *i;
-	while (line[*i] && !ft_chrstr(line[*i], " \t<>"))
+	while (line[*i] && !ft_chrstr(line[*i], "<>") && !ft_whitespaces(line[*i]))
 	{
 		if (ft_chrstr(line[*i], "\"'"))
 		{

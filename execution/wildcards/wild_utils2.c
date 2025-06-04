@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 20:58:49 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/05/31 15:05:31 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/06/01 21:34:12 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	found_and_used(t_wu *wu)
 	}
 	else if (!wu->split[*wu->i + 1])
 	{
-		if (ft_chrindex(path, '.') != 0 && path[1] != '/')
+		if (path[1] != '/')
 			ft_add_wild(wu->head, ft_new_wild(path, true, wu->c));
 	}
 }
@@ -100,7 +100,8 @@ void	recursive_wild(t_wu *wu)
 	wu->entry = readdir(opened);
 	while (wu->entry)
 	{
-		if (!current_dir(wu->entry->d_name))
+		if (ft_chrindex(wu->entry->d_name, '.') != 0
+			&& !current_dir(wu->entry->d_name))
 		{
 			if (ft_chrstr('*', wu->split[*wu->i]))
 				wildcard_matcher(wu);

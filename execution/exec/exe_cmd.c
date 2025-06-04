@@ -6,7 +6,7 @@
 /*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 14:02:42 by ihamani           #+#    #+#             */
-/*   Updated: 2025/06/01 09:28:44 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/02 10:25:52 by ihamani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ char	**dp_env(t_env **ft_env, t_gc **gc)
 	res = ft_malloc((len + 1) * sizeof(char *), gc);
 	while (i < len || head)
 	{
+		if (!head->value)
+		{
+			head = head->next;
+			continue ;
+		}
 		res[i] = ft_strjoin(head->name, "=", gc);
 		res[i] = ft_strjoin(res[i], head->value, gc);
 		i++;
@@ -93,6 +98,8 @@ static void	child(char **args, t_c *c)
 	signal(SIGQUIT, SIG_DFL);
 	tmp = (*c->root);
 	exec_redirec(tmp->token, c);
+	if (tmp->token->in == -1 || tmp->token->out == -1)
+		exit(set_status(0, 0));
 	if (!args[0][0])
 	{
 		ft_putstr_fd("\'\'", 2);

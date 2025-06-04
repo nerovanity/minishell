@@ -6,7 +6,7 @@
 /*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 09:44:05 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/06/01 09:32:01 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/02 10:50:48 by ihamani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ bool	in_files(t_tk *token, char *path, t_c *c)
 	if (!check_f(token, path, c))
 		return (perror(path), false);
 	tmp = h_expander(formating(path, c->garbage), c);
-	if (tmp && *tmp)
-		tmp = wildcards(gen_arry(tmp, c->garbage), c)[0];
-	if ((!tmp || !tmp[0]))
+	if (!tmp || !tmp[0] || !check_amb(tmp))
 	{
 		token->in = -1;
-		return (ft_putstr_fd(path, 2), ft_putstr_fd(": ambiguous redirect\n",
-				2), set_status(1, -1), false);
+		return (ft_putstr_fd(formating(path, c->garbage), 2),
+			ft_putstr_fd(": ambiguous redirect\n", 2), false);
 	}
+	if (tmp && *tmp)
+		tmp = wildcards(gen_arry(tmp, c->garbage), c)[0];
 	if (token->in)
 		close(token->in);
 	token->in = open(tmp, O_RDONLY);
@@ -58,14 +58,14 @@ bool	out_files(t_tk *token, char *path, t_c *c)
 		return (errno = 2, perror(path), false);
 	}
 	tmp = h_expander(formating(path, c->garbage), c);
-	tmp = wildcards(gen_arry(tmp, c->garbage), c)[0];
-	if (!tmp || !tmp[0])
+	if (!tmp || !tmp[0] || !check_amb(tmp))
 	{
 		set_status(1, -1);
 		token->out = -1;
-		return (ft_putstr_fd(path, 2), ft_putstr_fd(": ambiguous redirect\n",
-				2), false);
+		return (ft_putstr_fd(formating(path, c->garbage), 2),
+			ft_putstr_fd(": ambiguous redirect\n", 2), false);
 	}
+	tmp = wildcards(gen_arry(tmp, c->garbage), c)[0];
 	if (token->out > 0)
 		close(token->out);
 	token->out = open(tmp, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -88,12 +88,12 @@ bool	append_files(t_tk *token, char *path, t_c *c)
 	tmp = h_expander(formating(path, c->garbage), c);
 	if (tmp && *tmp)
 		tmp = wildcards(gen_arry(tmp, c->garbage), c)[0];
-	if (!tmp || !tmp[0])
+	if (!tmp || !tmp[0] || !check_amb(tmp))
 	{
 		set_status(1, -1);
 		token->out = -1;
-		return (ft_putstr_fd(path, 2), ft_putstr_fd(": ambiguous redirect\n",
-				2), false);
+		return (ft_putstr_fd(formating(path, c->garbage), 2),
+			ft_putstr_fd(": ambiguous redirect\n", 2), false);
 	}
 	if (token->out > 0)
 		close(token->out);

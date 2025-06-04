@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 15:03:38 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/06/01 09:59:53 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/02 10:38:37 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,15 @@ void	expand_wildcards(char *arg, char *dir, t_wild **head, t_c *c)
 	char	**splited;
 	int		i;
 
-	if (ft_chrstr('/', arg))
-	{
-		splited = ft_wild_split(arg, c, 0, 0);
-		i = 0;
-		dir = gen_dir(splited, &i, ft_chrindex(arg, '/'), c);
-		if (!dir)
-			return ;
-	}
-	else
-	{
-		splited = ft_wild_split(arg, c, 0, 0);
-		i = 0;
-		dir = "./";
-	}
+	if ((ft_strlen(arg) > 0 && arg[0] == '/') || ft_strinstr(arg, "//"))
+		return ;
+	if (ft_strlen(arg) >= 2 && arg[0] == '.' && arg[1] == '/')
+		arg = ft_substr(arg, 2, ft_strlen(arg) - 1, c->garbage);
+	splited = ft_wild_split(arg, c, 0, 0);
+	if (!splited)
+		return ;
+	i = 0;
+	dir = "./";
 	utils.dir = dir;
 	utils.split = splited;
 	utils.i = &i;

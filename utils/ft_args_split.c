@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_args_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 09:48:28 by ihamani           #+#    #+#             */
-/*   Updated: 2025/06/01 09:58:51 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/02 10:56:12 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ static int	strlen_mod(char *str)
 	words = 0;
 	while (str[i])
 	{
-		while (str[i] == ' ')
+		while (ft_whitespaces(str[i]))
 			i++;
 		if (!str[i])
 			break ;
 		words++;
-		while (str[i] && str[i] != ' ')
+		while (str[i] && !ft_whitespaces(str[i]))
 		{
 			if (ft_chrstr(str[i], "\'\""))
 			{
@@ -62,7 +62,7 @@ static char	**free_the_split(char **res, int words)
 
 bool	more_things(t_as *u)
 {
-	while (u->str[u->i] && u->str[u->i] != ' ')
+	while (u->str[u->i] && !ft_whitespaces(u->str[u->i]))
 	{
 		if (ft_chrstr(u->str[u->i], "\'\""))
 		{
@@ -103,7 +103,7 @@ char	**ft_args_split(char *str, t_gc **garbage)
 	u->i = 0;
 	while (str[u->i])
 	{
-		while (str[u->i] && str[u->i] == ' ')
+		while (str[u->i] && ft_whitespaces(str[u->i]))
 			(u->i)++;
 		if (!str[u->i])
 			break ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minisplit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 11:13:35 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/05/30 17:58:36 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/02 10:50:49 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	process_word(char **new_line, t_mini *m_utils, t_gc **garbage)
 {
 	m_utils->j = m_utils->i;
 	while (m_utils->line[m_utils->i] && !ft_chrstr(m_utils->line[m_utils->i],
-			" \t<>"))
+			"<>") && !ft_whitespaces(m_utils->line[m_utils->i]))
 	{
 		if (handle_quotes(m_utils->line, &m_utils->i))
 			continue ;

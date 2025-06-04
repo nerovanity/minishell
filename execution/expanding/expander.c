@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 10:14:42 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/05/31 17:22:50 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/06/02 11:54:35 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	handle_both_quotes_and_dollar(char *arg, t_c *c, t_arg **head)
 
 	j = 0;
 	splited = ft_expand_split(arg, c, 0, 0);
-	splited = hundler(splited, c);
+	splited = hundler(splited, c, 0);
 	if (!splited)
 		return ;
 	while (splited[j])
