@@ -93,9 +93,3 @@ make
 ## Author
 
 - [nerovanity](https://github.com/nerovanity) , [mrmo7ox](https://github.com/mrmo7ox)
-
----
-
-## License
-
-This project is released for educational purposes and follows the 42 school guidelines.
