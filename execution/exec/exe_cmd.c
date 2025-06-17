@@ -70,7 +70,7 @@ char	*resolve_path(char **args, t_env **ft_env, t_gc **gc)
 {
 	char	*path;
 
-	if (!strcmp(args[0], "..") || !strcmp(args[0], "."))
+	if (!ft_strcmp(args[0], "..") || !ft_strcmp(args[0], "."))
 	{
 		ft_putstr_fd(args[0], 2);
 		ft_putstr_fd(": command not found\n", 2);

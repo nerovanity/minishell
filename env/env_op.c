@@ -12,13 +12,13 @@
 
 #include "../minishell.h"
 
-void	env_init(char **env, t_env **ft_env)
+void	env_init(char **env, t_env **ft_env, t_gc **gg)
 {
 	int		i;
 	char	**tmp;
 
 	if (!(*env))
-		no_env(ft_env);
+		no_env(ft_env, gg);
 	else
 	{
 		i = 0;
@@ -35,6 +35,7 @@ void	env_init(char **env, t_env **ft_env)
 			i++;
 		}
 		init_pwd(ft_env);
+		shlvl(ft_env, gg);
 	}
 }
 

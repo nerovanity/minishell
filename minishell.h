@@ -259,7 +259,7 @@ typedef struct s_expand_hundler
 
 void						ft_add_env(t_env **head, t_env *new);
 t_env						*ft_new_env(char *name, char *value);
-void						env_init(char **env, t_env **ft_env);
+void						env_init(char **env, t_env **ft_env, t_gc **gg);
 void						ft_putenv(char *name, char *value, t_env **ft_env);
 char						*ft_getenv(char *name, t_env **ft_env);
 void						ft_free_env(t_env **ft_env);
@@ -272,7 +272,7 @@ int							export(char **args, int out, t_env **ft_env,
 void						export_append(char *name, char *value,
 								t_env **ft_env, t_gc **gg);
 void						ft_upenv(char *name, char *value, t_env **ft_env);
-void						no_env(t_env **ft_env);
+void						no_env(t_env **ft_env, t_gc **gc);
 int							ext_export(char *name, char *value, t_env **ft_env,
 								t_gc **gg);
 void						export_sort(t_env **ft_env);
@@ -481,5 +481,7 @@ char						*redc_expander(char *line, t_c *c);
 char						*prompt(t_c *c);
 void						exe_or(t_leaf **root, t_c *c);
 void						exe_and(t_leaf **root, t_c *c);
+int							ft_atoi(const char *str);
+void						shlvl(t_env **ft_env, t_gc **gc);
 
 #endif

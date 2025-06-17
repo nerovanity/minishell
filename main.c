@@ -40,7 +40,7 @@ static void	minishell_init(t_c *c, int ac, char **av, char **env)
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
 	c->status = 0;
-	env_init(env, c->ft_env);
+	env_init(env, c->ft_env, c->garbage);
 	env_check_path(c->ft_env, 0);
 }
 
