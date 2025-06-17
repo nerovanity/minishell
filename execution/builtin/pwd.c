@@ -6,7 +6,7 @@
 /*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:11:44 by ihamani           #+#    #+#             */
-/*   Updated: 2025/05/30 10:09:45 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/14 14:59:19 by ihamani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 static void	old_pwd(char *old, t_env **ft_env)
 {
 	if (check_name_env("OLDPWD", ft_env))
-		ft_upenv("OLDPWD", old, ft_env);
-	else
 	{
-		if (!old)
-			ft_putenv("OLDPWD", NULL, ft_env);
+		if (old)
+			ft_upenv("OLDPWD", old, ft_env);
 		else
-			ft_putenv("OLDPWD", old, ft_env);
+		{
+			if (check_name_env("PWD", ft_env))
+				ft_upenv("OLDPWD", ft_getenv("PWD", ft_env), ft_env);
+		}
 	}
 }
 
@@ -37,8 +38,6 @@ static void	helper(t_env **ft_env, char **old)
 		free(tmp);
 	if (check_name_env("PWD", ft_env))
 		ft_upenv("PWD", *old, ft_env);
-	else
-		ft_putenv("PWD", *old, ft_env);
 }
 
 char	*pwd_update(t_env **ft_env, int flag)
@@ -57,8 +56,6 @@ char	*pwd_update(t_env **ft_env, int flag)
 			free(tmp);
 		if (check_name_env("PWD", ft_env))
 			ft_upenv("PWD", old, ft_env);
-		else
-			ft_putenv("PWD", old, ft_env);
 	}
 	else if (flag == 2)
 		helper(ft_env, &old);
@@ -68,6 +65,23 @@ char	*pwd_update(t_env **ft_env, int flag)
 		old = NULL;
 	}
 	return (old);
+}
+
+void	init_pwd(t_env **ft_env)
+{
+	char	*tmp;
+
+	if (!check_name_env("OLDPWD", ft_env))
+		ft_putenv("OLDPWD", NULL, ft_env);
+	tmp = getcwd(NULL, 0);
+	if (!check_name_env("PWD", ft_env))
+		ft_putenv("PWD", tmp, ft_env);
+	else
+	{
+		if (tmp)
+			ft_upenv("PWD", tmp, ft_env);
+	}
+	free(tmp);
 }
 
 int	ft_pwd(t_env **ft_env, int out)

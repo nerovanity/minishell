@@ -6,7 +6,7 @@
 /*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 13:40:54 by ihamani           #+#    #+#             */
-/*   Updated: 2025/06/01 19:23:10 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/15 10:19:22 by ihamani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	remove_node(char *name, t_env **ft_env)
 		*ft_env = (*ft_env)->next;
 		free_node(t);
 	}
-	else if (head && ft_strcmp(head->name, "_"))
+	else if (head)
 	{
 		prev->next = head->next;
 		free_node(t);
@@ -48,12 +48,29 @@ static void	remove_node(char *name, t_env **ft_env)
 		env_check_path(ft_env, -1);
 }
 
+static void	remove_path(char *name, t_env **ft_env)
+{
+	if (!ft_strcmp(name, "PATH"))
+		env_check_path(ft_env, -1);
+}
+
 int	ft_unset(char **args, t_env **ft_env)
 {
 	int	i;
 
 	i = 1;
+	if (!ft_env || !*ft_env)
+	{
+		while (args[i])
+			remove_path(args[i++], ft_env);
+		return (0);
+	}
 	while (args[i])
-		remove_node(args[i++], ft_env);
+	{
+		if (!ft_strcmp("_", args[i]))
+			i++;
+		else
+			remove_node(args[i++], ft_env);
+	}
 	return (0);
 }

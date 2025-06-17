@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:40:20 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/06/02 13:33:00 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/06/14 18:34:51 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ typedef struct s_list
 	t_env					**env;
 	int						status;
 	t_gc					**garbage;
+	t_c						*c;
 }							t_list;
 
 typedef struct s_new_string
@@ -186,6 +187,7 @@ typedef struct s_new_string
 	char					*holder;
 	char					*temp;
 	t_expand				*start_end;
+	t_qoutes				*q;
 }							t_new;
 
 typedef struct s_size
@@ -195,6 +197,7 @@ typedef struct s_size
 	char					*holder;
 	char					*temp;
 	t_expand				*start_end;
+	t_qoutes				*q;
 	size_t					new_size;
 
 }							t_size;
@@ -256,7 +259,7 @@ typedef struct s_expand_hundler
 
 void						ft_add_env(t_env **head, t_env *new);
 t_env						*ft_new_env(char *name, char *value);
-void						env_init(char **env, t_env **ft_env, t_gc **gc);
+void						env_init(char **env, t_env **ft_env);
 void						ft_putenv(char *name, char *value, t_env **ft_env);
 char						*ft_getenv(char *name, t_env **ft_env);
 void						ft_free_env(t_env **ft_env);
@@ -269,7 +272,7 @@ int							export(char **args, int out, t_env **ft_env,
 void						export_append(char *name, char *value,
 								t_env **ft_env, t_gc **gg);
 void						ft_upenv(char *name, char *value, t_env **ft_env);
-void						no_env(t_env **ft_env, t_gc **gc);
+void						no_env(t_env **ft_env);
 int							ext_export(char *name, char *value, t_env **ft_env,
 								t_gc **gg);
 void						export_sort(t_env **ft_env);
@@ -278,7 +281,6 @@ bool						check_name_env(char *name, t_env **ft_env);
 int							ft_pwd(t_env **ft_env, int out);
 int							ft_unset(char **args, t_env **env);
 void						clone_env(t_env **ft_env, t_env **tmp);
-void						shlvl(t_env **ft_env, t_gc **gc);
 int							ft_exit(char **args, t_env **ft_env, t_gc **gc,
 								int prev);
 char						*pwd_update(t_env **ft_env, int flag);
@@ -363,7 +365,6 @@ char						*extract_file(char *line, int *i, int *j, t_c *c);
 int							handle_redirection(t_redic **res, t_c *c,
 								char *line, int *i);
 char						*ft_strcpy(char *dest, const char *src);
-int							ft_atoi(const char *str);
 long long					ft_atoll(char *str);
 t_leaf						*new_leaf(t_tk *token, t_type type, t_gc **garbage);
 t_leaf						*build_ast(t_tk *tokens, t_gc **garbage);
@@ -473,5 +474,10 @@ int							process_dollar_expansion(char *arg, int j, t_c *c,
 bool						ft_strinstr(char *haystack, char *needle);
 void						env_init_helper(char *name, char *value,
 								t_env **ft_env);
-bool						check_amb(char *tmp);
+bool						check_amb(char *new);
+void						init_pwd(t_env **ft_env);
+char						*del_exp(char *line, t_c *c);
+void						merge_sorting(t_wild **head, t_c *c);
+char						*redc_expander(char *line, t_c *c);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 16:40:08 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/06/02 13:31:02 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/06/15 11:26:43 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	minishell_init(t_c *c, int ac, char **av, char **env)
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
 	c->status = 0;
-	env_init(env, c->ft_env, c->garbage);
+	env_init(env, c->ft_env);
 	env_check_path(c->ft_env, 0);
 }
 

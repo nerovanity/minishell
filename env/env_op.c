@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   env_op.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihamani <ihamani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 13:50:48 by ihamani           #+#    #+#             */
-/*   Updated: 2025/06/02 10:34:29 by ihamani          ###   ########.fr       */
+/*   Updated: 2025/06/15 10:35:58 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	env_init(char **env, t_env **ft_env, t_gc **gc)
+void	env_init(char **env, t_env **ft_env)
 {
 	int		i;
 	char	**tmp;
 
 	if (!(*env))
-		no_env(ft_env, gc);
+		no_env(ft_env);
 	else
 	{
 		i = 0;
@@ -34,7 +34,7 @@ void	env_init(char **env, t_env **ft_env, t_gc **gc)
 			free(tmp);
 			i++;
 		}
-		shlvl(ft_env, gc);
+		init_pwd(ft_env);
 	}
 }
 

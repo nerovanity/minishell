@@ -61,11 +61,9 @@ void	handle_signal_pip(int tmp, int status)
 			set_status(130, -1);
 		write(1, "\n", 1);
 	}
-	if ((WTERMSIG(status) == SIGQUIT)
-		|| (WTERMSIG(tmp) == SIGPIPE && WTERMSIG(tmp) == SIGQUIT))
+	if ((WTERMSIG(status) == SIGQUIT))
 	{
-		if (WTERMSIG(status) == SIGQUIT)
-			set_status(131, -1);
+		set_status(131, -1);
 		ft_putstr_fd("Quit (core dumped)", 2);
 		write(1, "\n", 1);
 	}
