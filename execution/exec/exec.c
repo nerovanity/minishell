@@ -102,7 +102,11 @@ int	execc(t_c *c)
 	run_heredoc(root, c);
 	if (g_signal != 169)
 	{
-		if (node->type == PIPE)
+		if (node->type == OR)
+			exe_or(root, c);
+		else if (node->type == AND)
+			exe_and(root, c);
+		else if (node->type == PIPE)
 			pipe_handle(root, NULL, c, 1);
 		else if (node->type == COMMAND)
 			return (exe_cmd_hundler(node, c));

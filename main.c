@@ -50,7 +50,7 @@ void	loop(t_c *c)
 	{
 		g_signal = SIGINT;
 		c->pid = get_pid_str(c);
-		c->line = readline("Minishell$> ");
+		c->line = readline(prompt(c));
 		if (!c->line)
 			ft_exit(NULL, c->ft_env, c->garbage, set_status(0, 0));
 		add_history(c->line);

@@ -477,7 +477,9 @@ void						env_init_helper(char *name, char *value,
 bool						check_amb(char *new);
 void						init_pwd(t_env **ft_env);
 char						*del_exp(char *line, t_c *c);
-void						merge_sorting(t_wild **head, t_c *c);
 char						*redc_expander(char *line, t_c *c);
+char						*prompt(t_c *c);
+void						exe_or(t_leaf **root, t_c *c);
+void						exe_and(t_leaf **root, t_c *c);
 
 #endif
