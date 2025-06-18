@@ -86,7 +86,6 @@ make
 - Features such as unclosed quotes, `\` (backslash), or `;` (semicolon) are **not** required.
 - The shell is designed to closely mimic Bash behavior for signals and built-ins, **within the constraints of the project**.
 - The use of the `readline` function may cause memory leaks internally, but your own code must be leak-free.
-- Now supports `&&`, `||` logical operators and manages the `SHLVL` environment variable.
 
 ---
 
